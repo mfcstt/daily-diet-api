@@ -4,6 +4,7 @@ import {config} from "dotenv";
 // define the schema for environment variables
 const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
+  DATABASE_URL: z.string(),
 })
 
 // load environment variables from .env file
