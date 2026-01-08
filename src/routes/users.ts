@@ -2,13 +2,16 @@ import type { FastifyInstance } from "fastify";
 import z from "zod";
 import { db } from "../database.js";
 import { randomUUID } from "node:crypto";
+import { checkSessionIdExists } from "../middlewares/check-session-id.js";
 
 export async function usersRoute(app: FastifyInstance){
+  // GET /users
   app.get('/', async() => {
     const users = await db('users').select('*')
     return users
   })
 
+  // POST /users
   app.post('/', async(request, reply) => {
 
     // validate request body
@@ -31,6 +34,7 @@ export async function usersRoute(app: FastifyInstance){
       })
     }
 
+    // insert new user into the database
     await db('users').insert({
       id: randomUUID(),
       name,
@@ -38,7 +42,9 @@ export async function usersRoute(app: FastifyInstance){
       session_id: sessionId,
     })
 
-    return { message: 'User created successfully' }
+    reply.status(201).send(
+      {message: 'User created successfully'}
+    )
   })
 }
 
