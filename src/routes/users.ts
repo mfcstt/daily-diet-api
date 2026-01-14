@@ -43,7 +43,7 @@ export async function usersRoute(app: FastifyInstance){
     })
 
     reply.status(201).send(
-      {message: 'User created successfully'}
+      {message: 'User created successfully', sessionId}
     )
   })
 }

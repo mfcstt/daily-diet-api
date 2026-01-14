@@ -19,7 +19,7 @@ export async function mealsRoute(app: FastifyInstance) {
     const mealsBodySchema = z.object({
       name: z.string(),
       description: z.string(),
-      date_time: z.iso.datetime(),
+      date_time: z.string().datetime(),
       is_on_diet: z.boolean()
     })
 
@@ -98,7 +98,7 @@ app.put('/:id', {preHandler: [checkSessionIdExists]}, async(request, reply) => {
   const mealsBodySchema = z.object({
     name: z.string(),
     description: z.string(),
-    date_time: z.iso.datetime(),
+    date_time: z.string().datetime(),
     is_on_diet: z.boolean()
   })
 
